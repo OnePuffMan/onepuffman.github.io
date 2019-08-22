@@ -10,21 +10,6 @@ var sMsg = ''; // bericht aan gebruiker
 var sNaam = 'nieuwe klant'; // standaard invulling naam
 var nSaldo = 0; // standaard saldo
 
-  //test cookie
-if(getCookie('klantnaam')){
-     //gekende klant
-     var sNaam = getCookie('klantnaam');
-     var nSaldo = getCookie('saldo');
-
-     //bericht
-     sMsg += "Welkom " + sNaam + ",";
-     sMsg += "uw saldo bedraagt " + nSaldo + " Euro";
-}
-else{
-     //eerste bezoek
-     sMsg += "Welkom beste bezoeker. ";
-     sMsg += "Als u bij ons een nieuwe rekening opent, ontvangt u een startsaldo van 100 Euro!";
-}
 
 if(getCookie('klantnaam')){
      //gekende klant
@@ -58,7 +43,33 @@ var tNode = document.createTextNode(sMsg);
 dfBericht.appendChild(tNode);
 dfBericht.appendChild(eNl.cloneNode(false));
 dfBericht.appendChild(eNl.cloneNode(false));
+dfBericht.appendChild(eKnop);
+
 eOutput.appendChild(dfBericht);
+
+/******************FUNCTIES*********************************/
+function maakKnop(tekst){
+     /*
+     returnt een DOM button element
+     */
+     var eKnop = document.createElement('button');
+     var sTekst = document.createTextNode(tekst);
+     eKnop.appendChild(sTekst);
+     eKnop.setAttribute('type','button');
+     return eKnop;
+}
+
+//----------------------------------------------------------
+
+function rekeningOpenen(){
+console.log('rekening openen');
+}
+
+//----------------------------------------------------------
+
+function rekeningSluiten(){
+console.log('rekening sluiten');
+}
 
 /**************** DOM functies *******************/
 
@@ -67,7 +78,7 @@ function leegNode(objNode){
      @ objNode: node, verplicht, de node die geleegd wordt
 */
      while(objNode.hasChildNodes()){
-          objNode.removeChild(objNode.firstChild)
+          objNode.removeChild(objNode.firstChild);
      }
 }
 
@@ -152,27 +163,3 @@ function clearCookie(naam){
      */
      setCookie(naam,"",-1);
      }
-
-/******************FUNCTIES*********************************/
-function maakKnop(tekst){
-     /*
-     returnt een DOM button element
-     */
-     var eKnop = document.createElement('button');
-     var sTekst = document.createTextNode(tekst);
-     eKnop.appendChild(sTekst);
-     eKnop.setAttribute('type','button');
-     return eKnop;
-}
-
-//----------------------------------------------------------
-
-function rekeningOpenen(){
-console.log('rekening openen');
-}
-
-//----------------------------------------------------------
-
-function rekeningSluiten(){
-console.log('rekening sluiten');
-}
