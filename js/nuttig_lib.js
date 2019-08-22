@@ -14,7 +14,7 @@ let nSaldo = 0; // standaard saldo
 if(getCookie('klantnaam')){
      //gekende klant
      let sNaam = getCookie('klantnaam');
-     var nSaldo = parseFloat(getCookie('saldo')).toFixed(2);
+     let nSaldo = parseFloat(getCookie('saldo')).toFixed(2);
 
      //outputbericht
      sMsg = "Welkom " + sNaam + ",";
@@ -68,7 +68,7 @@ function maakKnop(tekst){
 
 function rekeningOpenen(){
      //console.log('rekening openen');
-     var sNaam = window.prompt("Uw naam, graag?","");
+     let sNaam = window.prompt("Uw naam, graag?","");
      if (sNaam!="" && sNaam!=null){
           setCookie('klantnaam',sNaam,100);
           setCookie('saldo',100,100);
@@ -88,14 +88,14 @@ function berekenen(bewerking){
      @bewerking = een '+' of een '-' teken
      */
 
-     var nNieuwSaldo = 0;
-     var eBedrag = document.getElementById('bedrag');
-     var sBedrag = eBedrag.value;
-     var sSaldo = getCookie('saldo');
-     var sBericht = "";
-     var re = /,/;
+     let nNieuwSaldo = 0;
+     let eBedrag = document.getElementById('bedrag');
+     let sBedrag = eBedrag.value;
+     let sSaldo = getCookie('saldo');
+     let sBericht = "";
+     let re = /,/;
      sBedrag = sBedrag.replace(re,'.');
-     var nNieuwSaldo = 0;
+     let nNieuwSaldo = 0;
 
      if(sSaldo !== null && sSaldo !== ""){
      if(sBedrag !== "" && !isNaN(sBedrag)){
@@ -111,7 +111,7 @@ function berekenen(bewerking){
           }
 
           if (nNieuwSaldo<=0){
-               var nMax = nSaldo-0.01;
+               let nMax = nSaldo-0.01;
                sBericht += "Uw saldo is onvoldoende om dit bedrag af te halen. ";
                sBericht += "U kunt maximaal " + nMax + " Euro afhalen.";
                eBedrag.value = nMax;
@@ -138,7 +138,7 @@ function berekenen(bewerking){
      }
      else{
      //geen saldo = geen rekening
-     var bOpenen = window.confirm('U heeft nog geen rekening geopend, nu even doen?');
+     let bOpenen = window.confirm('U heeft nog geen rekening geopend, nu even doen?');
      if(bOpenen===true){rekeningOpenen()}
      }
 }
