@@ -14,7 +14,7 @@ let nSaldo = 0; // standaard saldo
 if(getCookie('klantnaam')){
      //gekende klant
      let sNaam = getCookie('klantnaam');
-     let nSaldo = parseFloat(getCookie('saldo')).toFixed(2);
+     nSaldo = parseFloat(getCookie('saldo')).toFixed(2);
 
      //outputbericht
      sMsg = "Welkom " + sNaam + ",";
