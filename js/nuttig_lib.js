@@ -14,7 +14,7 @@ let nSaldo = 0; // standaard saldo
 if(getCookie('klantnaam')){
      //gekende klant
      let sNaam = getCookie('klantnaam');
-     let nSaldo = getCookie('saldo');
+     var nSaldo = parseFloat(getCookie('saldo')).toFixed(2);
 
      //outputbericht
      sMsg = "Welkom " + sNaam + ",";
@@ -47,6 +47,11 @@ dfBericht.appendChild(eKnop);
 
 eOutput.appendChild(dfBericht);
 
+/*******************EVENT HANDLERS **************************/
+//event handler voor + - knoppen
+eKnopKrediet.addEventListener('click', function(){ berekenen('+')});
+eKnopDebiet.addEventListener('click', function(){ berekenen('-')});
+
 /******************FUNCTIES*********************************/
 function maakKnop(tekst){
      /*
@@ -62,13 +67,80 @@ function maakKnop(tekst){
 //----------------------------------------------------------
 
 function rekeningOpenen(){
-console.log('rekening openen');
+     //console.log('rekening openen');
+     var sNaam = window.prompt("Uw naam, graag?","");
+     if (sNaam!="" && sNaam!=null){
+          setCookie('klantnaam',sNaam,100);
+          setCookie('saldo',100,100);
+          window.history.go(0);
+     }
 }
 
 //----------------------------------------------------------
 
 function rekeningSluiten(){
 console.log('rekening sluiten');
+}
+
+function berekenen(bewerking){
+     /*
+     storting of geldafhaling
+     @bewerking = een '+' of een '-' teken
+     */
+
+     var nNieuwSaldo = 0;
+     var eBedrag = document.getElementById('bedrag');
+     var sBedrag = eBedrag.value;
+     var sSaldo = getCookie('saldo');
+     var sBericht = "";
+     var re = /,/;
+     sBedrag = sBedrag.replace(re,'.');
+     var nNieuwSaldo = 0;
+
+     if(sSaldo !== null && sSaldo !== ""){
+     if(sBedrag !== "" && !isNaN(sBedrag)){
+          nSaldo = parseFloat(sSaldo);
+          nBedrag = parseFloat(sBedrag);
+          switch (bewerking) {
+          case '+':
+               nNieuwSaldo = nSaldo + nBedrag;
+               break;
+          case '-':
+               nNieuwSaldo = nSaldo - nBedrag;
+               break;
+          }
+
+          if (nNieuwSaldo<=0){
+               var nMax = nSaldo-0.01;
+               sBericht += "Uw saldo is onvoldoende om dit bedrag af te halen. ";
+               sBericht += "U kunt maximaal " + nMax + " Euro afhalen.";
+               eBedrag.value = nMax;
+               eBedrag.focus();
+               toonWaarschuwing(sBericht);
+          }
+          else{
+               setCookie('saldo',nNieuwSaldo,100);
+               window.history.go(0);
+               eBedrag.value = "";
+     }
+          }
+          else{
+               alert('U moet een correct bedrag ingeven');
+          }
+
+          setCookie('saldo',nNieuwSaldo,100);
+          window.history.go(0);
+          eBedrag.value = "";
+     }
+     else{
+          alert('U moet een correct bedrag ingeven');
+     }
+     }
+     else{
+     //geen saldo = geen rekening
+     var bOpenen = window.confirm('U heeft nog geen rekening geopend, nu even doen?');
+     if(bOpenen===true){rekeningOpenen()}
+     }
 }
 
 /**************** DOM functies *******************/
