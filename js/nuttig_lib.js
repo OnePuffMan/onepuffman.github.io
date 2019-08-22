@@ -1,27 +1,27 @@
 // JavaScript libary
 
 //DOM elementen
-var eOutput = document.getElementById('output');
-var eKnopKrediet = document.getElementById('krediet');
-var eKnopDebiet = document.getElementById('debiet');
+let eOutput = document.getElementById('output');
+let eKnopKrediet = document.getElementById('krediet');
+let eKnopDebiet = document.getElementById('debiet');
 
 //standaardwaarden
-var sMsg = ''; // bericht aan gebruiker
-var sNaam = 'nieuwe klant'; // standaard invulling naam
-var nSaldo = 0; // standaard saldo
+let sMsg = ''; // bericht aan gebruiker
+let sNaam = 'nieuwe klant'; // standaard invulling naam
+let nSaldo = 0; // standaard saldo
 
 
 if(getCookie('klantnaam')){
      //gekende klant
-     var sNaam = getCookie('klantnaam');
-     var nSaldo = getCookie('saldo');
+     let sNaam = getCookie('klantnaam');
+     let nSaldo = getCookie('saldo');
 
      //outputbericht
      sMsg = "Welkom " + sNaam + ",";
      sMsg += "uw saldo bedraagt " + nSaldo + " Euro";
 
      //knop
-     var eKnop = maakKnop('Sluit rekening');
+     let eKnop = maakKnop('Sluit rekening');
      eKnop.addEventListener('click',rekeningSluiten); //eventhandler
 }
 else{
@@ -30,16 +30,16 @@ else{
      sMsg += "Als u bij ons een nieuwe rekening opent, ontvangt u een startsaldo van 100 Euro!";
 
      //knop
-     var eKnop = maakKnop('Open rekening');
+     let eKnop = maakKnop('Open rekening');
      eKnop.addEventListener('click',rekeningOpenen);
 }
 
 // generische DOM elementen
-var dfBericht = document.createDocumentFragment();
-var eNl = document.createElement('br');
+let dfBericht = document.createDocumentFragment();
+let eNl = document.createElement('br');
 
 //vervolledig documentFragment en voeg in
-var tNode = document.createTextNode(sMsg);
+let tNode = document.createTextNode(sMsg);
 dfBericht.appendChild(tNode);
 dfBericht.appendChild(eNl.cloneNode(false));
 dfBericht.appendChild(eNl.cloneNode(false));
@@ -52,8 +52,8 @@ function maakKnop(tekst){
      /*
      returnt een DOM button element
      */
-     var eKnop = document.createElement('button');
-     var sTekst = document.createTextNode(tekst);
+     let eKnop = document.createElement('button');
+     let sTekst = document.createTextNode(tekst);
      eKnop.appendChild(sTekst);
      eKnop.setAttribute('type','button');
      return eKnop;
@@ -85,12 +85,12 @@ function leegNode(objNode){
 /**************** Datum, tijd functies *************/
 
 //globale datum objecten
-var vandaag = new Date();
+let vandaag = new Date();
 
 function getVandaagStr(){
 //returnt een lokale datumtijdstring
 
-var strNu = "Momenteel: " + vandaag.toLocaleDateString() + ", ";
+let strNu = "Momenteel: " + vandaag.toLocaleDateString() + ", ";
 strNu += vandaag.toLocaleTimeString();
 return strNu;
 }
@@ -99,20 +99,20 @@ return strNu;
 //----------datum arrays----------------------
 
 //dagen volgens getDay() volgorde
-var arrWeekdagen= new Array('zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag');
+let arrWeekdagen= new Array('zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag');
 
 //vervang feb dagen voor een schrikkeljaar
-var arrMaanden= new Array(['januari',31], ['februari',28], ['maart',31], ['april',30], ['mei',31], ['juni',30], ['juli',31],
+let arrMaanden= new Array(['januari',31], ['februari',28], ['maart',31], ['april',30], ['mei',31], ['juni',30], ['juli',31],
 ['augustus',31], ['september',30], ['oktober',31], ['november',30], ['december',31]);
 
 //---------------------------------------------
 
 //globale datum objecten te gebruiken in je pagina
-var vandaag = new Date();
-var huidigeDag = vandaag.getDate(); //dag van de maand
-var huidigeWeekDag = vandaag.getDay(); //weekdag
-var huidigeMaand = vandaag.getMonth();
-var huidigJaar = vandaag.getFullYear();
+let vandaag = new Date();
+let huidigeDag = vandaag.getDate(); //dag van de maand
+let huidigeWeekDag = vandaag.getDay(); //weekdag
+let huidigeMaand = vandaag.getMonth();
+let huidigJaar = vandaag.getFullYear();
 
 /************** cookies ****************************/
 function setCookie(naam,waarde,dagen){
@@ -124,10 +124,10 @@ function setCookie(naam,waarde,dagen){
      indien afwezig wordt het een session cookie
      */
      
-     var verval = "";
+     let verval = "";
      if(dagen){
           //vandaag global bovenaan deze lib;
-          var vervalDatum = new Date(vandaag.getTime()+dagen*24*60*60*1000);
+          let vervalDatum = new Date(vandaag.getTime()+dagen*24*60*60*1000);
           verval = vervalDatum.toUTCString();
      }
      document.cookie = naam + "=" + waarde + ";expires=" + verval;
@@ -140,12 +140,12 @@ function getCookie(naam){
      naam: cookienaam
      */
      
-     var zoek = naam + "=";
+     let zoek = naam + "=";
      if (document.cookie.length>0){
-          var begin = document.cookie.indexOf(zoek);
+          let begin = document.cookie.indexOf(zoek);
           if (begin!=-1){
                begin += zoek.length;
-               var einde = document.cookie.indexOf(";", begin);
+               let einde = document.cookie.indexOf(";", begin);
                if (einde==-1){
                     einde = document.cookie.length;
                }
