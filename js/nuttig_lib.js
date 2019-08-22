@@ -95,7 +95,7 @@ function berekenen(bewerking){
      let sBericht = "";
      let re = /,/;
      sBedrag = sBedrag.replace(re,'.');
-     let nNieuwSaldo = 0;
+     nNieuwSaldo = 0;
 
      if(sSaldo !== null && sSaldo !== ""){
      if(sBedrag !== "" && !isNaN(sBedrag)){
